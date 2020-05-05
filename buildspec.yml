@@ -2,15 +2,11 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.7
+      nodejs: 12
     commands:
       # Install packages or any pre-reqs in this phase.
-      # Upgrading SAM CLI to latest version
-      - pip3 install --upgrade aws-sam-cli
+      - npm install serverless -g
       - sls --version
-      # Installing project dependencies
-      - cd hello-world
-      - npm install
 
   # pre_build:
   #   commands:
@@ -20,16 +16,21 @@ phases:
   build:
     commands:
       # Use Build phase to build your artifacts (compile, etc.)
-      - cd ..
-      - sam build
+      - cd app
+      - sls deploy
 
-  post_build:
-    commands:
-      # Use Post-Build for notifications, git tags, upload artifacts to S3
-      - sam package --s3-bucket $PACKAGE_BUCKET --output-template-file packaged.yaml
+  # post_build:
+  #   commands:
+  #     # Use Post-Build for notifications, git tags, upload artifacts to S3
+  #     - sam package --s3-bucket $PACKAGE_BUCKET --output-template-file packaged.yaml
 
 artifacts:
-  discard-paths: yes
   files:
-    # List of local artifacts that will be passed down the pipeline
-    - sls-templated.yaml
+    - '**/*'
+  base-directory: .serverless
+
+# artifacts:
+#   discard-paths: yes
+#   files:
+#     # List of local artifacts that will be passed down the pipeline
+#     - sls-templated.yaml
