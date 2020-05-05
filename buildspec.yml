@@ -2,11 +2,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: 10
     commands:
       # Install packages or any pre-reqs in this phase.
       - npm install serverless -g
       - sls --version
+      - cd app
+      - npm install
 
   # pre_build:
   #   commands:
@@ -16,18 +18,13 @@ phases:
   build:
     commands:
       # Use Build phase to build your artifacts (compile, etc.)
-      - cd app
       - sls deploy
 
-  # post_build:
-  #   commands:
-  #     # Use Post-Build for notifications, git tags, upload artifacts to S3
-  #     - sam package --s3-bucket $PACKAGE_BUCKET --output-template-file packaged.yaml
 
-artifacts:
-  files:
-    - '**/*'
-  base-directory: .serverless
+#artifacts:
+#  files:
+#    - '**/*'
+#  base-directory: .serverless
 
 # artifacts:
 #   discard-paths: yes
