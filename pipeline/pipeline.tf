@@ -72,7 +72,7 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        Owner      = "clevedec"
+        Owner      = "cledevedec"
         Repo       = "sls-apigateway"
         Branch     = "master"
         OAuthToken = "c77b9ac9be7f759e22ceeaea2a21358b1511619c"
@@ -94,27 +94,6 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration = {
         ProjectName = "poc-cicd"
-      }
-    }
-  }
-
-  stage {
-    name = "Deploy"
-
-    action {
-      name            = "Deploy"
-      category        = "Deploy"
-      owner           = "AWS"
-      provider        = "CloudFormation"
-      input_artifacts = ["build_output"]
-      version         = "1"
-
-      configuration = {
-        ActionMode     = "REPLACE_ON_FAILURE"
-        Capabilities   = "CAPABILITY_AUTO_EXPAND,CAPABILITY_IAM"
-        OutputFileName = "CreateStackOutput.json"
-        StackName      = "cicd_poc_sls"
-        TemplatePath   = "build_output::sls-templated.yaml"
       }
     }
   }
