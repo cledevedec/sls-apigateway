@@ -31,6 +31,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         "s3:GetObject",
         "s3:GetObjectVersion",
         "s3:GetBucketVersioning",
+        "s3:ListBucket",
         "s3:PutObject"
       ],
       "Resource": [
@@ -108,14 +109,6 @@ resource "aws_codepipeline" "codepipeline" {
   #     provider        = "CloudFormation"
   #     input_artifacts = ["build_output"]
   #     version         = "1"
-  #
-  #     configuration = {
-  #       ActionMode     = "REPLACE_ON_FAILURE"
-  #       Capabilities   = "CAPABILITY_AUTO_EXPAND,CAPABILITY_IAM"
-  #       OutputFileName = "CreateStackOutput.json"
-  #       StackName      = "MyStack"
-  #       TemplatePath   = "build_output::sam-templated.yaml"
-  #     }
   #   }
   # }
 }
