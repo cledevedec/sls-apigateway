@@ -20,11 +20,10 @@ phases:
       # Use Build phase to build your artifacts (compile, etc.)
       - sls deploy
 
-
-#artifacts:
-#  files:
-#    - '**/*'
-#  base-directory: .serverless
+artifacts:
+ files:
+   - '**/*'
+ base-directory: .serverless
 
 # artifacts:
 #   discard-paths: yes
